@@ -1,6 +1,6 @@
-package com.example.controller.exceptions;
+package com.example.exceptions.controllerAdvices;
 
-import com.example.controller.controllerAdiveces.NoSuchSortingException;
+import com.example.exceptions.NoSuchSortingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

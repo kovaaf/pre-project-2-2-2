@@ -5,11 +5,14 @@ spring:
     username: postgres
     password: postgres
   jpa:
-    generate-ddl: true
     show-sql: true
-
-myapplication:
-  sortFields: model,engine
 
 car:
   maxCar: 5
+  sortFields: model,engine
+
+loan:
+  minimalincome: 40000
+  minimalCarPrice: 1000000
+  maxShare: 30
+  url: https://66055cd12ca9478ea1801f2e.mockapi.io/api/users/income

@@ -2,26 +2,27 @@ package com.example.entity;
 
 import jakarta.persistence.*;
 
-@Table(name = "car")
 @Entity
+@Table(name = "car")
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String model;
-    @Column(name = "engine")
     private String engine;
-    @Column(name = "capacity")
-    private String capacity;
+    private Long price;
+    @OneToOne(mappedBy = "car")
+    private Person person;
 
     public Car() {
 
     }
 
-    public Car(String model, String engine, String capacity) {
+    public Car(String model, String engine, Long price, Person person) {
         this.model = model;
         this.engine = engine;
-        this.capacity = capacity;
+        this.price = price;
+        this.person = person;
     }
 
     public Long getId() {
@@ -48,11 +49,19 @@ public class Car {
         this.engine = engine;
     }
 
-    public String getCapacity() {
-        return capacity;
+    public Long getPrice() {
+        return price;
     }
 
-    public void setCapacity(String capacity) {
-        this.capacity = capacity;
+    public void setPrice(Long price) {
+        this.price = price;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.controller.controllerAdiveces;
+package com.example.exceptions;
 
 public class NoSuchSortingException extends RuntimeException {
     public NoSuchSortingException(String sortBy) {
