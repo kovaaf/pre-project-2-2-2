@@ -9,5 +9,7 @@ spring:
     show-sql: true
 
 myapplication:
-  maxCar: 5
   sortFields: model,engine
+
+car:
+  maxCar: 5

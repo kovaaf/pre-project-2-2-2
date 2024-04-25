@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.configuration.CarProperties;
 import com.example.configuration.ConfigProperties;
 import com.example.controller.controllerAdiveces.NoSuchSortingException;
 import com.example.entity.Car;
@@ -17,10 +18,12 @@ import java.util.List;
 public class CarService {
     private final CarRepository carRepository;
     private final ConfigProperties configProperties;
+    private final CarProperties carProperties;
 
-    public CarService(CarRepository carRepository, ConfigProperties configProperties) {
+    public CarService(CarRepository carRepository, ConfigProperties configProperties, CarProperties carProperties) {
         this.carRepository = carRepository;
         this.configProperties = configProperties;
+        this.carProperties = carProperties;
     }
 
 
@@ -37,7 +40,7 @@ public class CarService {
     }
 
     private int validateSorting(String sortMethod) {
-        int maxCar = configProperties.getMaxCar();
+        int maxCar = carProperties.getMaxCar();
 
         String[] sortFields = configProperties.getSortFields().split(",");
         if (sortMethod != null && Arrays.stream(sortFields).noneMatch(x -> x.equalsIgnoreCase(sortMethod))) {

@@ -4,16 +4,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "myapplication")
 public class ConfigProperties {
-    private final Integer maxCar;
     private final String sortFields;
 
-    public ConfigProperties(Integer maxCar, String sortFields) {
-        this.maxCar = maxCar;
+    public ConfigProperties(String sortFields) {
         this.sortFields = sortFields;
-    }
-
-    public Integer getMaxCar() {
-        return maxCar;
     }
 
     public String getSortFields() {
