@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show cars</title>
+</head>
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    tr:nth-child(even) {
+        background-color: rgba(150, 212, 212, 0.2);
+    }
+
+    th:nth-child(even),td:nth-child(even) {
+        background-color: rgba(150, 212, 212, 0.1);
+    }
+    tr:hover {background-color: #D6EEEE;}
+</style>
+<body>
+<h3>List of cars:</h3>
+<!--<div th:each="car : ${carList}">-->
+<!--    <p th:text="${car.getModel()} + ', ' + ${car.getEngine()} + ', ' + ${car.getCapacity()}">book</p>-->
+<!--</div>-->
+
+<table style="width:50%">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Model</th>
+            <th>Engine</th>
+            <th>Capacity</th>
+        </tr>
+    </thead>
+    <tbody >
+        <tr th:each="car, iterStat : ${carList}">
+
+            <td th:text="${iterStat.index}+1"></td>
+            <td th:text="${car.getModel()}"></td>
+            <td th:text="${car.getEngine()}"></td>
+            <td th:text="${car.getCapacity()}"></td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,12 @@
+spring.application.name: pre-project-2-2-2
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pre-project-2-2-2
+    username: postgres
+    password: postgres
+  jpa:
+    generate-ddl: true
+    show-sql: true
+
+maxCar: 5
+sortFields: model,engine
