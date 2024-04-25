@@ -8,5 +8,6 @@ spring:
     generate-ddl: true
     show-sql: true
 
-maxCar: 5
-sortFields: model,engine
+myapplication:
+  maxCar: 5
+  sortFields: model,engine
