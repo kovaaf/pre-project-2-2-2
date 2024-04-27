@@ -12,7 +12,7 @@ public class CarProperties {
         this.sortFields = sortFields;
     }
 
-    public Integer getMaxCar() {
+    public Integer getMaxCars() {
         return maxCar;
     }
 

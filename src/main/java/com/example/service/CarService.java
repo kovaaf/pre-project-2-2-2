@@ -24,40 +24,36 @@ public class CarService {
     }
 
 
-    public void findAllCars(Integer count, String sortMethod, Model model) {
-        int maxCar = validateSorting(sortMethod);
+    public void findAllCars(Integer count, String sortOrder, Model model) {
+        int maxCars = validateSortOrder(sortOrder);
 
-        if (count == null || count >= maxCar) {
-            model.addAttribute("carList", findAll(sortMethod));
+        if (count == null || count >= maxCars) {
+            model.addAttribute("carList", findAll(sortOrder));
         } else if (count <= 0) {
             model.addAttribute("carList", Collections.<Car> emptyList());
         } else {
-            model.addAttribute("carList", findAll(count, sortMethod));
+            model.addAttribute("carList", findAll(count, sortOrder));
         }
     }
 
-    private int validateSorting(String sortMethod) {
-        int maxCar = carProperties.getMaxCar();
+    private int validateSortOrder(String sortMethod) {
+        int maxCars = carProperties.getMaxCars();
 
         String[] sortFields = carProperties.getSortFields().split(",");
-        if (sortMethod != null && Arrays.stream(sortFields).noneMatch(x -> x.equalsIgnoreCase(sortMethod))) {
+        if (sortMethod != null && Arrays.stream(sortFields).noneMatch(field -> field.equalsIgnoreCase(sortMethod))) {
             throw new NoSuchSortingException(sortMethod);
         }
-        return maxCar;
+        return maxCars;
     }
 
-    private List<Car> findAll(String sortMethod) {
-        if (sortMethod != null) {
-            return carRepository.findAll(Sort.by(sortMethod));
-        } else {
-            return carRepository.findAll();
-        }
+    private List<Car> findAll(String sortField) {
+        Sort sort = sortField != null ? Sort.by(sortField) : Sort.unsorted();
+        return carRepository.findAll(sort);
     }
     private List<Car> findAll(Integer count, String sortMethod) {
-        if (sortMethod != null) {
-            return carRepository.findAll(PageRequest.of(0, count, Sort.by(sortMethod))).getContent();
-        } else {
-            return carRepository.findAll(PageRequest.of(0, count)).getContent();
-        }
+        PageRequest pageRequest = sortMethod != null
+                ? PageRequest.of(0, count, Sort.by(sortMethod))
+                : PageRequest.of(0, count);
+        return carRepository.findAll(pageRequest).getContent();
     }
 }

@@ -17,7 +17,7 @@ public class LoanController {
 
     @ResponseBody
     @GetMapping(value = "loan", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String approveLoan(@RequestParam(value = "userId") Long id) {
-        return loanService.approveLoan(id);
+    public String approveLoan(@RequestParam(value = "userId") long personId) {
+        return loanService.approveLoan(personId);
     }
 }

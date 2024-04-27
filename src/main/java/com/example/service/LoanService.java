@@ -5,8 +5,6 @@ import com.example.entity.Car;
 import com.example.repositories.CarRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class LoanService {
     private final CarRepository carRepository;
@@ -19,17 +17,17 @@ public class LoanService {
         this.incomeClient = incomeClient;
     }
 
-    public String approveLoan(Long id) {
-        Long minimalCarPrice = loanProperties.getMinimalCarPrice();
-        Long minimalIncome = loanProperties.getMinimalIncome();
-        Long maxShare = loanProperties.getMaxShare() / 100;
+    public String approveLoan(long personId) {
+        long minimalCarPrice = loanProperties.getMinimalCarPrice();
+        long minimalIncome = loanProperties.getMinimalIncome();
+        long maxShare = loanProperties.getMaxShare() / 100;
 
-        return String.valueOf(calculateApprovedLoan(id, minimalCarPrice, minimalIncome, maxShare));
+        return String.valueOf(calculateApprovedLoan(personId, minimalCarPrice, minimalIncome, maxShare));
     }
 
-    private double calculateApprovedLoan(Long id, Long minimalCarPrice, Long minimalIncome, Long maxShare) {
-        double monthlyIncome = incomeClient.getIncome(id);
-        Long carPrice = getCarPrice(id);
+    private double calculateApprovedLoan(long personId, long minimalCarPrice, long minimalIncome, long maxShare) {
+        double monthlyIncome = incomeClient.getIncome(personId);
+        long carPrice = getCarPrice(personId);
 
         double approvedLoan = 0;
         if (carPrice >= minimalCarPrice || monthlyIncome > minimalIncome) {
@@ -39,16 +37,10 @@ public class LoanService {
         return approvedLoan;
     }
 
-    private Long getCarPrice(Long id) {
-        List<Car> carList = carRepository.findByPersonId(id);
-        Long carPrice = 0L;
-        if (carList.size() == 1) {
-            carPrice = carList.getFirst().getPrice();
-        } else if (carList.size() > 1) {
-            for (Car car : carList) {
-                carPrice += car.getPrice();
-            }
-        }
-        return carPrice;
+    private long getCarPrice(long personId) {
+        return carRepository.findByPersonId(personId)
+                .stream()
+                .mapToLong(Car::getPrice)
+                .sum();
     }
 }

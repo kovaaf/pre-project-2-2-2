@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class IncomeClient {
@@ -22,29 +21,24 @@ public class IncomeClient {
         this.loanProperties = loanProperties;
     }
 
-    public double getIncome(Long id) {
-        double monthlyIncome;
-        Optional<Person> person = getPersonList().stream()
-                .filter(p -> id.equals(p.getId()))
-                .findAny();
-        if (person.isPresent()) {
-            monthlyIncome = person.get().getIncome();
-        } else {
-            throw new NoPersonWithSuchIdException(id);
-        }
-
-        return monthlyIncome;
+    public double getIncome(long personId) {
+        return getPersonList().stream()
+                .filter(p -> personId == p.getId())
+                .findFirst()
+                .map(Person::getIncome)
+                .orElseThrow(() -> new NoPersonWithSuchIdException(personId));
     }
 
     private List<Person> getPersonList() {
+        String url = loanProperties.getUrl();
         List<Person> personList = defaultRestTemplate.exchange(
-                loanProperties.getUrl(),
+                url,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<Person>>() {}).getBody();
 
         if (personList == null) {
-            throw new NonValidExternalResourceOrEmptyException(loanProperties.getUrl());
+            throw new NonValidExternalResourceOrEmptyException(url);
         }
         return personList;
     }
