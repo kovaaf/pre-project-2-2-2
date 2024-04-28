@@ -11,7 +11,7 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long income;
-    @OneToOne()
+    @OneToOne
     @JoinTable(name = "person_car",
             joinColumns =
                     { @JoinColumn(name = "person_id", referencedColumnName = "id") },
