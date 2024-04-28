@@ -1,7 +1,9 @@
 package com.example.configuration.properties;
 
+import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+@Getter
 @ConfigurationProperties(prefix = "loan")
 public class LoanProperties {
     private final Long minimalIncome;
@@ -14,21 +16,5 @@ public class LoanProperties {
         this.minimalCarPrice = minimalCarPrice;
         this.maxShare = maxShare;
         this.url = url;
-    }
-
-    public Long getMinimalIncome() {
-        return minimalIncome;
-    }
-
-    public Long getMinimalCarPrice() {
-        return minimalCarPrice;
-    }
-
-    public Long getMaxShare() {
-        return maxShare;
-    }
-
-    public String getUrl() {
-        return url;
     }
 }

@@ -1,9 +1,15 @@
 package com.example.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.Optional;
-
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "person")
 public class Person {
@@ -19,38 +25,6 @@ public class Person {
                     { @JoinColumn(name = "car_id", referencedColumnName = "id") })
     private Car car;
 
-    public Person() {
-    }
-
-    public Person(Long income, Car car) {
-        this.income = income;
-        this.car = car;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getIncome() {
-        return income;
-    }
-
-    public void setIncome(Long income) {
-        this.income = income;
-    }
-
-    public Optional<Car> getCar() {
-        return Optional.ofNullable(car);
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Person{");
@@ -59,7 +33,7 @@ public class Person {
             sb.append(" income=").append(income);
         }
         if (car != null) {
-            sb.append(" car").append(car.getModel());
+            sb.append(" car=").append(car.getModel());
         }
         sb.append(" }");
         return sb.toString();
