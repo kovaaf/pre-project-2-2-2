@@ -1,6 +1,6 @@
 package com.example.exceptions.controllerAdvices;
 
-import com.example.exceptions.NonValidExternalResourceOrEmptyException;
+import org.company.exceptions.NonValidExternalResourceOrEmptyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

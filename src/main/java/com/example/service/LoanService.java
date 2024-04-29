@@ -3,6 +3,7 @@ package com.example.service;
 import com.example.configuration.properties.LoanProperties;
 import com.example.entity.Car;
 import com.example.repositories.CarRepository;
+import org.company.service.IncomeClient;
 import org.springframework.stereotype.Service;
 
 @Service
